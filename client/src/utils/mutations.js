@@ -60,6 +60,21 @@ export const SAVE_WORKOUT = gql`
   }
 `;
 
+export const UPDATE_WORKOUT = gql`
+  mutation updateWorkout($workoutId: ID!) {
+     updateWorkout(workoutId: $workoutId) {
+      _id
+      username
+      email
+      savedWorkouts {
+      workoutId
+      title
+      description
+     }
+   }
+ }
+`;
+
 export const REMOVE_WORKOUT = gql`
   mutation removeWorkout($workoutId: ID!) {
     removeWorkout(workoutId: $workoutId) {
