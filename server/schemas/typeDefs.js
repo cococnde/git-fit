@@ -13,6 +13,7 @@ type Exercise {
 }
      type Query {
     exercises: [Exercise]
+    exercise(name: String!): Exercise
   }
 `;
 module.exports = typeDefs;
