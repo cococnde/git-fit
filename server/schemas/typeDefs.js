@@ -14,5 +14,14 @@ type Exercise {
      type Query {
     exercises: [Exercise]
   }
+
+  type Mutation{
+  login( email: String!, password: String!): Auth
+  signup(username: String!, email: String!, password: String!): Auth
+  saveExercise(newExercise: ExerciseInput):User
+  updateExercise(exerciseId: ID!): User
+  removeExercise(exerciseId: ID!): User
+  }
 `;
+
 module.exports = typeDefs;
