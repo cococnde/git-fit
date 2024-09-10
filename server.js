@@ -8,7 +8,7 @@ const path = require('path');
 
 const typeDefs = require('./server/schemas/typeDefs');
 const resolvers = require('./server/schemas/resolvers'); // Correctly import resolvers
-const db = require('./db'); // Correctly import the Mongoose connection
+const db = require('./server/config/connection'); // Correctly import the Mongoose connection
 
 const PORT = process.env.PORT || 4001;
 
