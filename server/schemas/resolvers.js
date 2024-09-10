@@ -1,9 +1,10 @@
+// resolvers.js
+
 const { Exercise, User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { AuthenticationError } = require('apollo-server');
 
-// Use environment variable for JWT secret
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const resolvers = {
@@ -43,7 +44,7 @@ const resolvers = {
 
         return { token, user };
       } catch (err) {
-        console.error(err);
+        console.error('Error in signUp mutation:', err); // Log the complete error
         throw new Error('Failed to sign up');
       }
     },
@@ -68,7 +69,8 @@ const resolvers = {
 
         return { token, user };
       } catch (err) {
-        console.error(err);
+        console.error('Error in login mutation:', err.message);
+        console.error('Error stack trace:', err.stack);
         throw new Error('Failed to log in');
       }
     },
@@ -76,4 +78,3 @@ const resolvers = {
 };
 
 module.exports = resolvers;
-
