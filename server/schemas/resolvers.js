@@ -3,7 +3,7 @@
 const { Exercise, User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { AuthenticationError } = require('apollo-server');
+const { AuthenticationError } = require('@apollo/server');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
