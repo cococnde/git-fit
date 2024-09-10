@@ -6,8 +6,9 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 
-const { typeDefs, resolvers } = require('./server/schemas');
-const db = require('./db'); // Correctly importing the Mongoose connection
+const typeDefs = require('./server/schemas/typeDefs');
+const resolvers = require('./server/schemas/resolvers'); // Correctly import resolvers
+const db = require('./db'); // Correctly import the Mongoose connection
 
 const PORT = process.env.PORT || 4001;
 
@@ -17,7 +18,6 @@ const server = new ApolloServer({
   resolvers,
 });
 
-// Start Apollo Server
 const startApolloServer = async () => {
   try {
     console.log('Starting Apollo Server...');
@@ -38,7 +38,7 @@ const startApolloServer = async () => {
 
     console.log('Waiting for MongoDB connection...');
 
-    db.on('connected', () => {
+    db.once('connected', () => { // Use 'once' instead of 'on' for initial connection
       console.log('MongoDB connection is open, starting the server...');
       app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);
@@ -56,4 +56,5 @@ const startApolloServer = async () => {
 };
 
 startApolloServer();
+
 
