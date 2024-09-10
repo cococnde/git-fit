@@ -28,6 +28,15 @@ const typeDefs = gql`
 
   type Query {
     exercises: [Exercise]
+    exercise(name: String!): Exercise
+  }
+
+  type Mutation{
+  login( email: String!, password: String!): Auth
+  signup(username: String!, email: String!, password: String!): Auth
+  saveExercise(newExercise: ExerciseInput):User
+  updateExercise(exerciseId: ID!): User
+  removeExercise(exerciseId: ID!): User
   }
 
   type Mutation {

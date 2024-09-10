@@ -34,11 +34,18 @@ export const ADD_USER = gql`
         _id
         username
         email
-        workoutCount
-        savedWorkouts {
-          workoutId
-          title
-          description
+        exerciseCount
+        savedExercises{
+          _id
+          name
+          force
+          level
+          mechanic
+          equipment
+          primaryMuscles
+          secondaryMuscles
+          intructions
+          
         }
       }
     }
@@ -46,45 +53,62 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_WORKOUT = gql`
-  mutation saveWorkout($newWorkout: WorkoutInput!) {
-    saveWorkout(newWorkout: $newWorkout) {
+  mutation saveExercise($newExercise: ExerciseInput) {
       _id
       username
       email
-      savedWorkouts {
-        workoutId
-        title
-        description
+      savedExercises {
+        _id
+          name
+          force
+          level
+          mechanic
+          equipment
+          primaryMuscles
+          secondaryMuscles
+          intructions
       }
     }
   }
 `;
 
 export const UPDATE_WORKOUT = gql`
-  mutation updateWorkout($workoutId: ID!) {
-     updateWorkout(workoutId: $workoutId) {
+  mutation updateExercise($exerciseId: ID!) {
+     updateExercise(exerciseId: $exerciseId) {
       _id
       username
       email
-      savedWorkouts {
-      workoutId
-      title
-      description
+      savedExercises {
+          _id
+          name
+          force
+          level
+          mechanic
+          equipment
+          primaryMuscles
+          secondaryMuscles
+          intructions
      }
    }
  }
 `;
 
 export const REMOVE_WORKOUT = gql`
-  mutation removeWorkout($workoutId: ID!) {
-    removeWorkout(workoutId: $workoutId) {
+  mutation removeExercise($exerciseId: ID!) {
+    removeExercise(exerciseId: $exerciseId) {
       _id
       username
       email
-      savedWorkouts {
-        workoutId
-        title
-        description
+      savedExercises {
+         _id
+          name
+          force
+          level
+          mechanic
+          equipment
+          primaryMuscles
+          secondaryMuscles
+          intructions
       }
     }
   }
