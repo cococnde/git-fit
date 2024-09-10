@@ -1,7 +1,5 @@
-const { gql } = require('apollo-server');
-
 // Define your full type definitions
-const typeDefs = gql`
+const typeDefs = `
   type Exercise {
     _id: ID
     name: String
@@ -27,7 +25,7 @@ const typeDefs = gql`
   }
 
   input ExerciseInput {
-  name: String
+    name: String
     force: String
     level: String
     mechanic: String
@@ -43,12 +41,12 @@ const typeDefs = gql`
     exercise(name: String!): Exercise
   }
 
-  type Mutation{
-  login( email: String!, password: String!): AuthPayload
-  signup(username: String!, email: String!, password: String!): AuthPayload
-  saveExercise(newExercise: ExerciseInput ):User
-  updateExercise(exerciseId: ID!): User
-  removeExercise(exerciseId: ID!): User
+  type Mutation {
+    login(email: String!, password: String!): AuthPayload
+    signup(username: String!, email: String!, password: String!): AuthPayload
+    saveExercise(newExercise: ExerciseInput): User
+    updateExercise(exerciseId: ID!): User
+    removeExercise(exerciseId: ID!): User
   }
 
   type Mutation {

@@ -49,11 +49,9 @@ const startApolloServer = async () => {
     db.on('error', (error) => {
       console.error('Error in MongoDB connection:', error);
     });
-
   } catch (err) {
     console.error('Failed to start Apollo Server:', err);
   }
 };
 
 startApolloServer();
-
