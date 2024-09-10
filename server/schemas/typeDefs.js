@@ -26,15 +26,27 @@ const typeDefs = gql`
     user: User
   }
 
+  input ExerciseInput {
+  name: String
+    force: String
+    level: String
+    mechanic: String
+    equipment: String
+    primaryMuscles: [String]
+    secondaryMuscles: [String]
+    instructions: [String]
+    category: String
+  }
+
   type Query {
     exercises: [Exercise]
     exercise(name: String!): Exercise
   }
 
   type Mutation{
-  login( email: String!, password: String!): Auth
-  signup(username: String!, email: String!, password: String!): Auth
-  saveExercise(newExercise: ExerciseInput):User
+  login( email: String!, password: String!): AuthPayload
+  signup(username: String!, email: String!, password: String!): AuthPayload
+  saveExercise(newExercise: ExerciseInput ):User
   updateExercise(exerciseId: ID!): User
   removeExercise(exerciseId: ID!): User
   }
