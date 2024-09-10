@@ -7,7 +7,7 @@ export const getSavedExerciseIds = () => {
   };
   
   export const saveExerciseIds = (exerciseIdArr) => {
-    if (exerciseIdArrIdArr.length) {
+    if (exerciseIdArr.length) {
       localStorage.setItem('saved_exercises', JSON.stringify(exerciseIdArr));
     } else {
       localStorage.removeItem('saved_exercises');
