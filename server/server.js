@@ -17,7 +17,6 @@ const server = new ApolloServer({
   resolvers,
 });
 
-// Start Apollo Server
 const startApolloServer = async () => {
   try {
     console.log('Starting Apollo Server...');
@@ -38,7 +37,8 @@ const startApolloServer = async () => {
 
     console.log('Waiting for MongoDB connection...');
 
-    db.on('connected', () => {
+    db.once('connected', () => {
+      // Use 'once' instead of 'on' for initial connection
       console.log('MongoDB connection is open, starting the server...');
       app.listen(PORT, () => {
         console.log(`API server running on port ${PORT}!`);

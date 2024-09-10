@@ -50,8 +50,11 @@ const typeDefs = `
   }
 
   type Mutation {
-    signUp(email: String!, password: String!, username: String!): AuthPayload
     login(email: String!, password: String!): AuthPayload
+    signUp(username: String!, email: String!, password: String!): AuthPayload
+    saveExercise(newExercise: ExerciseInput): User
+    updateExercise(exerciseId: ID!): User
+    removeExercise(exerciseId: ID!): User
   }
 `;
 
