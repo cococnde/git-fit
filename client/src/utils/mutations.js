@@ -12,17 +12,10 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const ADD_USER = gql`
-  mutation signup($username: String!, $email: String!, $password: String!) {
-    signup(username: $username, email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
-        email
-        exerciseCount
-        savedExercises {
-          _id
+/*
+exerciseCount
+        saveExercises {
+          id
           name
           force
           level
@@ -31,7 +24,17 @@ export const ADD_USER = gql`
           primaryMuscles
           secondaryMuscles
           instructions
-        }
+}
+*/
+
+export const ADD_USER = gql`
+  mutation signup($username: String!, $email: String!, $password: String!) {
+    signup(username: $username, email: $email, password: $password) {
+      token
+      user {
+        id
+        username
+        email
       }
     }
   }

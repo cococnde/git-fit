@@ -20,6 +20,7 @@ const resolvers = {
   },
   Mutation: {
     signUp: async (_, { email, password, username }) => {
+      console.log(email, username, password);
       try {
         // Check if a user already exists with the given email
         const existingUser = await User.findOne({ email });
