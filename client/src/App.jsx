@@ -54,6 +54,7 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/search" element={<SearchExercises />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/api/signup" element={<LoginForm />} />
             {/* Add more routes here as needed */}
           </Routes>
           <Outlet /> {/* This is where nested routes will be rendered */}
