@@ -7,8 +7,19 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { Router, Outlet, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Outlet,
+} from 'react-router-dom';
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
+import LandingPage from './pages/LandingPage.jsx';
+import SearchExercises from './pages/searchexercise.jsx';
+import LoginForm from './components/LoginForm.jsx';
 
+// Set up HTTP link to GraphQL endpoint
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -26,6 +37,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+// Create Apollo Client instance
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
@@ -35,8 +47,19 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <h1>Hello</h1>
-      {/* <Outlet /> */}
+      <Router>
+        <Header />
+        <div className="app-container">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/search" element={<SearchExercises />} />
+            <Route path="/login" element={<LoginForm />} />
+            {/* Add more routes here as needed */}
+          </Routes>
+          <Outlet /> {/* This is where nested routes will be rendered */}
+        </div>
+        <Footer />
+      </Router>
     </ApolloProvider>
   );
 }
