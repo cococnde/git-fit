@@ -1,0 +1,94 @@
+/* Container for the entire search exercises section */
+.search-exercises-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* Container for the search exercises section */
+.search-exercises-section {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-exercises-header {
+  margin-bottom: 20px;
+}
+
+.search-exercises-header h1 {
+  font-size: 30px;
+}
+
+/* Styling for the search form */
+.search-form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Align items vertically in the center */
+}
+
+.search-form-container input {
+  margin-right: 10px; /* Add margin to the right of the input */
+  padding: 10px;
+  font-size: 16px;
+}
+
+.search-form-container button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #0e5eb4;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Add hover effect for the button */
+.search-form-container button:hover {
+  background-color: #1d7fe9;
+}
+
+/* Styling for the search results */
+.search-results {
+  margin-top: 20px; /* Add margin to the top of the search results */
+}
+
+.search-results-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}
+
+/* Styling for the exercise list */
+.exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Styling for the no results message */
+.no-results-message {
+  color: red;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Styling for the saved workouts section */
+.saved-workouts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 45%;
+}
+
+.saved-workouts-header h1 {
+  font-size: 30px;
+}
+
+.saved-workouts-list {
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+}

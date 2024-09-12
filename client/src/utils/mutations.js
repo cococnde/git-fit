@@ -1,14 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
-  mutation login(
-    $email: String!
-    $password: String!
-  ) {
-    login(
-      email: $email
-      password: $password
-    ) {
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
       token
       user {
         _id
@@ -19,23 +13,15 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation signup(
-    $username: String!
-    $email: String!
-    $password: String!
-  ) {
-    signup(
-      username: $username
-      email: $email
-      password: $password
-    ) {
+  mutation signup($username: String!, $email: String!, $password: String!) {
+    signup(username: $username, email: $email, password: $password) {
       token
       user {
         _id
         username
         email
         exerciseCount
-        savedExercises{
+        savedExercises {
           _id
           name
           force
@@ -44,29 +30,29 @@ export const ADD_USER = gql`
           equipment
           primaryMuscles
           secondaryMuscles
-          intructions
-          
+          instructions
         }
       }
     }
   }
 `;
 
-export const SAVE_WORKOUT = gql`
+export const SAVE_EXERCISE = gql`
   mutation saveExercise($newExercise: ExerciseInput) {
+    saveExercise(newExercise: $newExercise) {
       _id
       username
       email
       savedExercises {
         _id
-          name
-          force
-          level
-          mechanic
-          equipment
-          primaryMuscles
-          secondaryMuscles
-          intructions
+        name
+        force
+        level
+        mechanic
+        equipment
+        primaryMuscles
+        secondaryMuscles
+        instructions
       }
     }
   }
@@ -74,23 +60,23 @@ export const SAVE_WORKOUT = gql`
 
 export const UPDATE_WORKOUT = gql`
   mutation updateExercise($exerciseId: ID!) {
-     updateExercise(exerciseId: $exerciseId) {
+    updateExercise(exerciseId: $exerciseId) {
       _id
       username
       email
       savedExercises {
-          _id
-          name
-          force
-          level
-          mechanic
-          equipment
-          primaryMuscles
-          secondaryMuscles
-          intructions
-     }
-   }
- }
+        _id
+        name
+        force
+        level
+        mechanic
+        equipment
+        primaryMuscles
+        secondaryMuscles
+        instructions
+      }
+    }
+  }
 `;
 
 export const REMOVE_WORKOUT = gql`
@@ -100,15 +86,15 @@ export const REMOVE_WORKOUT = gql`
       username
       email
       savedExercises {
-         _id
-          name
-          force
-          level
-          mechanic
-          equipment
-          primaryMuscles
-          secondaryMuscles
-          intructions
+        _id
+        name
+        force
+        level
+        mechanic
+        equipment
+        primaryMuscles
+        secondaryMuscles
+        instructions
       }
     }
   }

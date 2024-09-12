@@ -8,15 +8,15 @@ export const GET_ME = gql`
       email
       exerciseCount
       savedExercises {
-          _id
-          name
-          force
-          level
-          mechanic
-          equipment
-          primaryMuscles
-          secondaryMuscles
-          intructions
+        _id
+        name
+        force
+        level
+        mechanic
+        equipment
+        primaryMuscles
+        secondaryMuscles
+        instructions
       }
     }
   }

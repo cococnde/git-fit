@@ -1,6 +1,5 @@
-
-
 import React, { useState } from 'react';
+import '../styles/LoginForm.css';
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -18,7 +17,9 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const endpoint = isLogin ? '/api/login' : '/api/signup';
-    const payload = isLogin ? { email, password } : { email, password, username };
+    const payload = isLogin
+      ? { email, password }
+      : { email, password, username };
 
     try {
       const response = await fetch(endpoint, {
@@ -55,6 +56,7 @@ const LoginForm = () => {
           />
         )}
         <input
+          id="email"
           type="email"
           placeholder="Email"
           value={email}
@@ -62,6 +64,7 @@ const LoginForm = () => {
           required
         />
         <input
+          id="password"
           type="password"
           placeholder="Password"
           value={password}
