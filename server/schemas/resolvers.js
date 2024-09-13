@@ -19,8 +19,8 @@ const resolvers = {
     }
   },
   Mutation: {
-    signUp: async (_, { email, password, username }) => {
-      console.log(email, username, password);
+    signUp: async (_, { email, password, }) => {
+      console.log(email, password);
       try {
         // Check if a user already exists with the given email
         const existingUser = await User.findOne({ email });
@@ -34,7 +34,6 @@ const resolvers = {
         // Create a new user and save it to the database
         const user = await User.create({
           email,
-          username,
           password: hashedPassword,
         });
 
