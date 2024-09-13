@@ -21,3 +21,16 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const SEARCH_EXERCISES = gql`
+  query searchExercises($searchTerm: String!) {
+    searchExercises(searchTerm: $searchTerm) {
+      _id
+      name
+      force
+      level
+      equipment
+      instructions
+    }
+  }
+`;

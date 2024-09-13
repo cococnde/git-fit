@@ -38,7 +38,10 @@ const typeDefs = `
   type Query {
     exercises: [Exercise]
     exercise(name: String!): Exercise
+    searchExercises(searchTerm: String!): [Exercise]
   }
+  
+  
 
 
   type Mutation {
