@@ -14,6 +14,7 @@ const readJSONFiles = async (folderPath) => {
       await readJSONFiles(filePath); 
     } else if (path.extname(file) === '.json') {
       const jsonData = require(filePath);
+      // console.log(jsonData);
       await Exercise.create(jsonData); 
     }
   }

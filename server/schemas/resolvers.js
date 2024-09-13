@@ -16,6 +16,16 @@ const resolvers = {
         console.error(err);
         throw new Error('Failed to fetch exercises');
       }
+    },
+    searchExercises: async (parent, { searchTerm }) => {
+      try {
+        return await Exercise.find({
+          name: { $regex: searchTerm, $options: 'i' }, // Case-insensitive search
+        });
+      } catch (err) {
+        console.error(err);
+        throw new Error('Failed to search exercises');
+      }
     }
   },
   Mutation: {
