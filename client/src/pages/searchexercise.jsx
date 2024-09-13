@@ -103,7 +103,6 @@ const SearchExercises = () => {
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <button type="submit">Search</button>
           </form>
         </div>
         {searchedExercises.length === 0 && (

@@ -42,6 +42,7 @@ const typeDefs = `
     searchExercises(searchTerm: String!): [Exercise]
   }
   
+  
 
 
   type Mutation {
