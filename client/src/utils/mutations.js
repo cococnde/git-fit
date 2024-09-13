@@ -29,7 +29,7 @@ exerciseCount
 
 export const ADD_USER = gql`
   mutation signup($username: String!, $email: String!, $password: String!) {
-    signup(username: $username, email: $email, password: $password) {
+    signUp(username: $username, email: $email, password: $password) {
       token
       user {
         id

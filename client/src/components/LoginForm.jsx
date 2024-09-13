@@ -26,21 +26,18 @@ const LoginForm = () => {
       ? { email, password }
       : { email, password, username };
 
-    try {
-      const response = await addUser({ variables: payload});
-      console.log(response);
-      if (response.ok) {
-        const data = response;
-        console.log('data', data);
-        localStorage.setItem('token', data.token); // Store JWT token in local storage
-        alert('Success!');
-      } else {
-        console.log(response);
-        alert('Error occurred during login/sign-up');
+      try {
+        const {data} = await addUser({ variables: payload});
+        if (data?.signUp || data?.login) {
+          console.log('data', data);
+          localStorage.setItem('token', data.token); // Store JWT token in local storage
+          alert('Success!');
+        } else {
+          alert('Error occurred during login/sign-up');
+        }
+      } catch (error) {
+        console.error('Error:', error);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
   };
 
   return (
