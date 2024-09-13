@@ -8,7 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Sign-Up Endpoint
 router.post('/signup', async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password, } = req.body;
 
   try {
     const existingUser = await User.findOne({ email });
@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword, username });
+    const user = new User({ email, password: hashedPassword, });
 
     await user.save();
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
