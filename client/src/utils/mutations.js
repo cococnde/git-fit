@@ -5,8 +5,7 @@ export const LOGIN_USER = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id
-        username
+        id
       }
     }
   }
@@ -28,17 +27,17 @@ exerciseCount
 */
 
 export const ADD_USER = gql`
-  mutation signup($username: String!, $email: String!, $password: String!) {
-    signUp(username: $username, email: $email, password: $password) {
+  mutation signUp($email: String!, $password: String!) {
+    signUp(email: $email, password: $password) {
       token
       user {
         id
-        username
         email
       }
     }
   }
 `;
+
 
 export const SAVE_EXERCISE = gql`
   mutation saveExercise($newExercise: ExerciseInput) {

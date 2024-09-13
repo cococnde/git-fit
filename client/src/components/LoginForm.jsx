@@ -7,52 +7,42 @@ const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
-  const [addUser] = useMutation(ADD_USER, {fetchPolicy: 'no-cache'});
+  const [addUser] = useMutation(ADD_USER, { fetchPolicy: 'no-cache' });
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
     setEmail('');
     setPassword('');
-    setUsername('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const entrypoint = isLogin ? 'login' : 'signup';
-    console.log(entrypoint);
-    const payload = isLogin
-      ? { email, password }
-      : { email, password, username };
+    const payload = { email, password }; // No need to handle username anymore
 
-      try {
-        const {data} = await addUser({ variables: payload});
-        if (data?.signUp || data?.login) {
-          console.log('data', data);
-          localStorage.setItem('token', data.token); // Store JWT token in local storage
-          alert('Success!');
-        } else {
-          alert('Error occurred during login/sign-up');
-        }
-      } catch (error) {
-        console.error('Error:', error);
+    try {
+      // Execute the correct mutation based on the login state
+      const { data } = isLogin
+        ? await loginUser({ variables: payload }) // Call loginUser if isLogin is true
+        : await addUser({ variables: payload }); // Call addUser if isLogin is false
+
+      if (data?.signUp || data?.login) {
+        const token = data.signUp?.token || data.login?.token;
+        console.log('data', data);
+        localStorage.setItem('token', token); // Store JWT token in local storage
+        alert('Success!');
+      } else {
+        alert('Error occurred during login/sign-up');
       }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="login-signup-container">
       <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
       <form onSubmit={handleSubmit}>
-        {!isLogin && (
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        )}
         <input
           id="email"
           type="email"
