@@ -3,91 +3,57 @@ import '../styles/searchexercise.css';
 import { ExerciseCard } from '../components/ExerciseCard'; // Use curly braces for named exports
 import { saveExerciseIds, getSavedExerciseIds } from '../utils/localStorage';
 import Auth from '../utils/auth';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { SAVE_EXERCISE } from '../utils/mutations';
+import { SEARCH_EXERCISES } from '../utils/queries';
 
 // Simulated search function
-const searchExercises = async (query) => {
-  // Simulate an API call with a delay
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        ok: true,
-        json: async () => ({
-          items: [
-            {
-              id: '1',
-              volumeInfo: {
-                name: 'Push Up',
-                force: 'Push',
-                level: 'Beginner',
-                equipment: 'None',
-                instructions: 'Start in a plank position...',
-              },
-            },
-            {
-              id: '2',
-              volumeInfo: {
-                name: 'Pull Up',
-                force: 'Pull',
-                level: 'Intermediate',
-                equipment: 'Pull-up bar',
-                instructions: 'Hang from the bar...',
-              },
-            },
-          ],
-        }),
-      });
-    }, 1000);
-  });
-};
-
 const SearchExercises = () => {
   const [searchedExercises, setSearchedExercises] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [savedExerciseIds, setSavedExerciseIds] = useState(
-    getSavedExerciseIds()
-  );
+  const [searchTerm, setSearchTerm] = useState(''); // State variable for the search term
+  const [savedExerciseIds, setSavedExerciseIds] = useState(getSavedExerciseIds());
   const [saveExercise] = useMutation(SAVE_EXERCISE);
-  const [searchPerformed, setSearchPerformed] = useState(false); // New state variable
   const [error, setError] = useState(''); // Error state
 
-  useEffect(() => {
-    return () => saveExerciseIds(savedExerciseIds);
-  }, [savedExerciseIds]);
+  // Execute the query only when searchTerm is set
+  const { data, loading, error: queryError } = useQuery(SEARCH_EXERCISES, {
+    variables: { searchTerm: searchInput },
+    skip: !searchTerm, // Skip query if searchTerm is empty
+  });
 
-  const handleFormSubmit = async (event) => {
+  useEffect(() => {
+    if (data) {
+      const exerciseData = data.searchExercises.map((exercise) => ({
+        key: exercise.id,
+        exerciseId: exercise.id,
+        name: exercise.name,
+        force: exercise.force,
+        level: exercise.level,
+        equipment: exercise.equipment,
+        instructions: exercise.instructions,
+      }));
+      setSearchedExercises(exerciseData);
+    }
+
+    if (queryError) {
+      setError('Error fetching exercises. Please try again.');
+      console.error(queryError);
+    } else {
+      setError(''); // Reset error if no error
+    }
+  }, [data, queryError]);
+
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     if (!searchInput) {
       setError('Please enter a search term');
-      return false;
+      return;
     }
 
-    try {
-      const response = await searchExercises(searchInput);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { items } = await response.json();
-
-      const exerciseData = items.map((exercise) => ({
-        exerciseId: exercise.id,
-        name: exercise.volumeInfo.name,
-        force: exercise.volumeInfo.force,
-        level: exercise.volumeInfo.level,
-        equipment: exercise.volumeInfo.equipment,
-        instructions: exercise.volumeInfo.instructions,
-      }));
-
-      setSearchedExercises(exerciseData);
-      setSearchInput('');
-      setError(''); // Clear previous errors
-      setSearchPerformed(true); // Set search performed to true
-    } catch (err) {
-      console.error(err);
-    }
+    // Set the search term for the query
+    setSearchTerm(searchInput);
+   
   };
 
   const handleSaveExercise = async (exerciseId) => {
@@ -140,7 +106,7 @@ const SearchExercises = () => {
             <button type="submit">Search</button>
           </form>
         </div>
-        {searchPerformed && searchedExercises.length === 0 && (
+        {searchedExercises.length === 0 && (
           <h2 className="no-results-message">
             No exercises found. Try a different search!
           </h2>
@@ -152,8 +118,9 @@ const SearchExercises = () => {
             </div>
             <ul className="search-results-list">
               {searchedExercises.map((exercise) => (
-                <li key={exercise.exerciseId}>
+                <li key={exercise.exerciseId} >
                   <ExerciseCard
+                    key={exercise.exerciseId}
                     exercise={exercise}
                     onSave={handleSaveExercise}
                     savedExerciseIds={savedExerciseIds}
@@ -170,8 +137,9 @@ const SearchExercises = () => {
         </div>
         <ul className="saved-workouts-list">
           {savedExerciseIds.map((exerciseId) => (
-            <li key={exerciseId}>
+            <li >
               <ExerciseCard
+                key={exerciseId}
                 exercise={searchedExercises.find(
                   (exercise) => exercise.exerciseId === exerciseId
                 )}

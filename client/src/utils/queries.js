@@ -25,7 +25,7 @@ export const GET_ME = gql`
 export const SEARCH_EXERCISES = gql`
   query searchExercises($searchTerm: String!) {
     searchExercises(searchTerm: $searchTerm) {
-      id
+      _id
       name
       force
       level
