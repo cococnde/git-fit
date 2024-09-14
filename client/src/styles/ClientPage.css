@@ -1,0 +1,19 @@
+.client-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .add-exercise-btn {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ff00ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-exercise-btn:hover {
+    background-color: #0056b3;
+  }
+  

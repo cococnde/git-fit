@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import { ADD_USER, LOGIN_USER } from '../utils/mutations';
 import '../styles/LoginForm.css';
 
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [addUser] = useMutation(ADD_USER, { fetchPolicy: 'no-cache' });
   const [loginUser] = useMutation(LOGIN_USER);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleToggle = () => {
     setIsLogin(!isLogin);
@@ -31,6 +33,7 @@ const LoginForm = () => {
         console.log('data', data);
         localStorage.setItem('token', token); // Store JWT token in local storage
         alert('Success!');
+        navigate('/client'); // Redirect to ClientPage after successful login/sign-up
       } else {
         alert('Error occurred during login/sign-up');
       }
