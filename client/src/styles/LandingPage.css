@@ -1,6 +1,13 @@
 .landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
   text-align: center;
   padding: 2rem;
+  background-image: url('../assets/hiking.png');
+  background-size: cover;
+  background-position: center;
   background-color: #f8f9fa;
 }
 
@@ -30,6 +37,7 @@
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
+  position: absolute;
 }
 
 .landing-page-container a:hover {
@@ -40,3 +48,13 @@
   color: black;
   font-size: 3rem;
 }
+
+/* .image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  position: absolute;
+} */
