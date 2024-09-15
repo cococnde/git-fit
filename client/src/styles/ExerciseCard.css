@@ -1,5 +1,6 @@
 /* Container for the exercise card */
 .exercise-card {
+  position: relative;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
@@ -28,25 +29,46 @@
   color: #666;
 }
 
-/* Styling for the save button */
-.exercise-card button {
-  padding: 10px 20px;
+/* Styling for buttons */
+.button {
+  position: absolute;
+  bottom: 10px;
+  padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #007bff; /* Change this to your desired background color */
-  color: #ffffff; /* Change this to your desired text color */
-  border: none; /* Remove border */
-  border-radius: 4px; /* Add border radius for rounded corners */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
-/* Add hover effect for the button */
-.exercise-card button:hover {
-  background-color: #0056b3; /* Change this to your desired hover background color */
+.save-button {
+  right: 10px;
+  background-color: #007bff;
 }
 
-/* Disabled button styling */
-.exercise-card button:disabled {
-  background-color: #ccc; /* Change this to your desired disabled background color */
-  cursor: not-allowed; /* Change cursor to indicate disabled state */
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.save-button:disabled {
+  background-color: #49c271;
+  cursor: not-allowed;
+}
+
+.remove-button {
+  left: 10px;
+  background-color: #dc3545;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
+
+/* Styling for the no saved exercises message */
+.no-saved-exercises-message {
+  font-size: 18px;
+  color: red;
+  text-align: center;
+  margin: 20px 0;
 }

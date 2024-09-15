@@ -6,35 +6,52 @@
   flex-wrap: wrap;
 }
 
-/* Container for the search exercises section */
-.search-exercises-section {
-  width: 45%;
+/* Styling for the search and saved exercises sections */
+.search-exercises-section,
+.saved-exercises-section {
+  width: 50%;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.search-exercises-header {
-  margin-bottom: 20px;
+/* Styling for the headers */
+.search-exercises-header,
+.saved-exercises-header {
+  margin-bottom: 1px;
 }
 
-.search-exercises-header h1 {
+.search-exercises-header h1,
+.saved-exercises-header h1 {
   font-size: 30px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
 /* Styling for the search form */
+.search-form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
 .search-form-container form {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Align items vertically in the center */
+  align-items: center;
+  width: 100%;
 }
 
 .search-form-container input {
-  margin-right: 10px; /* Add margin to the right of the input */
+  margin-top: 0;
   padding: 10px;
   font-size: 16px;
+  width: 80%;
+  margin-right: 10px;
 }
 
+/* Styling for the search button */
 .search-form-container button {
+  width: 23%;
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
@@ -42,22 +59,32 @@
   color: #ffffff;
   border: none;
   border-radius: 4px;
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  transition: background-color 0.3s ease;
 }
 
-/* Add hover effect for the button */
 .search-form-container button:hover {
   background-color: #1d7fe9;
 }
 
-/* Styling for the search results */
-.search-results {
-  margin-top: 20px; /* Add margin to the top of the search results */
+/* Styling for the search results and saved exercises */
+.search-results,
+.saved-exercises {
+  margin-top: 20px;
+  width: 100%;
 }
 
-.search-results-list {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0; /* Remove default padding */
+.search-results-header,
+.saved-exercises-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-results-list,
+.saved-exercises-list {
+  list-style-type: none;
+  padding: 0;
 }
 
 /* Styling for the exercise list */
@@ -67,28 +94,44 @@
   gap: 10px;
 }
 
-/* Styling for the no results message */
-.no-results-message {
-  color: red;
+/* Styling for messages */
+.no-results-message,
+.exercise-data-not-found,
+.loading-message,
+.error-message {
   font-size: 18px;
   text-align: center;
   width: 100%;
   margin-top: 20px;
 }
 
-/* Styling for the saved workouts section */
-.saved-workouts-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 45%;
+.no-results-message,
+.exercise-data-not-found {
+  color: red;
 }
 
-.saved-workouts-header h1 {
-  font-size: 30px;
+.loading-message {
+  color: blue;
 }
 
-.saved-workouts-list {
-  list-style-type: none; /* Remove bullet points */
-  padding: 0; /* Remove default padding */
+.error-message {
+  color: red;
+}
+
+/* Additional styling for exercise data not found message */
+.exercise-data-not-found {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+/* Styling for the saved exercises container */
+.saved-exercises-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

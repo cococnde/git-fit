@@ -60,7 +60,7 @@ export const SAVE_EXERCISE = gql`
   }
 `;
 
-export const UPDATE_WORKOUT = gql`
+export const UPDATE_EXERCISE = gql`
   mutation updateExercise($exerciseId: ID!) {
     updateExercise(exerciseId: $exerciseId) {
       _id
@@ -81,7 +81,7 @@ export const UPDATE_WORKOUT = gql`
   }
 `;
 
-export const REMOVE_WORKOUT = gql`
+export const REMOVE_EXERCISE = gql`
   mutation removeExercise($exerciseId: ID!) {
     removeExercise(exerciseId: $exerciseId) {
       _id
