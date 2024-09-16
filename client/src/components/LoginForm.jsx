@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import { ADD_USER, LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth'; // Import Auth
 import '../styles/LoginForm.css';
 
 const LoginForm = () => {
@@ -28,17 +29,21 @@ const LoginForm = () => {
         ? await loginUser({ variables: payload }) // Call loginUser if isLogin is true
         : await addUser({ variables: payload }); // Call addUser if isLogin is false
 
-      if (data?.signUp || data?.login) {
-        const token = data.signUp?.token || data.login?.token;
-        console.log('data', data);
-        localStorage.setItem('token', token); // Store JWT token in local storage
+      if (data?.login?.token || data?.signUp?.token) {
+        const token = data.login?.token || data.signUp?.token;
+        //console.log('data', data);
+        console.log('Token:', token);
+        Auth.setToken(token); // Set the token in localStorage
+
+        // Display success alert and navigate to the client page
         alert('Success!');
         navigate('/client'); // Redirect to ClientPage after successful login/sign-up
       } else {
-        alert('Error occurred during login/sign-up');
+        alert('Failed to login or sign up. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('An error occurred during login/sign-up. Please try again.');
     }
   };
 

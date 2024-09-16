@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/searchexercise.css';
-import { ExerciseCard } from '../components/ExerciseCard'; // Use curly braces for named exports
-import { saveExerciseIds, getSavedExerciseIds } from '../utils/localStorage';
+import ExerciseCard from '../components/ExerciseCard';
+import { saveExerciseIds, getSavedExerciseIds } from '../utils/localstorage';
 import Auth from '../utils/auth';
 import { useMutation, useQuery } from '@apollo/client';
-import { SAVE_EXERCISE } from '../utils/mutations';
+import { SAVE_EXERCISE, REMOVE_EXERCISE } from '../utils/mutations';
 import { SEARCH_EXERCISES } from '../utils/queries';
 
-// Simulated search function
 const SearchExercises = () => {
   const [searchedExercises, setSearchedExercises] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // State variable for the search term
-  const [savedExerciseIds, setSavedExerciseIds] = useState(getSavedExerciseIds());
+  const [searchTerm, setSearchTerm] = useState('');
+  const [savedExerciseIds, setSavedExerciseIds] = useState(
+    getSavedExerciseIds()
+  );
+  const [savedExercisesMap, setSavedExercisesMap] = useState(new Map());
   const [saveExercise] = useMutation(SAVE_EXERCISE);
-  const [error, setError] = useState(''); // Error state
+  const [removeExercise] = useMutation(REMOVE_EXERCISE);
+  const [error, setError] = useState('');
 
-  // Execute the query only when searchTerm is set
-  const { data, loading, error: queryError } = useQuery(SEARCH_EXERCISES, {
+  const {
+    data,
+    loading,
+    error: queryError,
+  } = useQuery(SEARCH_EXERCISES, {
     variables: { searchTerm: searchInput },
-    skip: !searchTerm, // Skip query if searchTerm is empty
+    skip: !searchTerm,
+    fetchPolicy: 'network-only',
   });
 
   useEffect(() => {
@@ -40,7 +47,7 @@ const SearchExercises = () => {
       setError('Error fetching exercises. Please try again.');
       console.error(queryError);
     } else {
-      setError(''); // Reset error if no error
+      setError('');
     }
   }, [data, queryError]);
 
@@ -50,16 +57,18 @@ const SearchExercises = () => {
       setError('Please enter a search term');
       return;
     }
-
-    // Set the search term for the query
     setSearchTerm(searchInput);
-   
   };
 
   const handleSaveExercise = async (exerciseId) => {
     const exerciseToSave = searchedExercises.find(
       (exercise) => exercise.exerciseId === exerciseId
     );
+
+    if (!exerciseToSave) {
+      console.log('Exercise not found for saving:', exerciseId);
+      return;
+    }
 
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -68,25 +77,79 @@ const SearchExercises = () => {
     }
 
     try {
-      const { data } = await saveExercise({
+      await saveExercise({
         variables: {
-          newExercise: exerciseToSave,
+          newExercise: {
+            name: exerciseToSave.name,
+            force: exerciseToSave.force,
+            level: exerciseToSave.level,
+            mechanic: exerciseToSave.mechanic,
+            equipment: exerciseToSave.equipment,
+            primaryMuscles: exerciseToSave.primaryMuscles,
+            secondaryMuscles: exerciseToSave.secondaryMuscles,
+            instructions: exerciseToSave.instructions,
+          },
         },
       });
 
-      console.log(data);
+      const updatedSavedExerciseIds = [
+        ...savedExerciseIds,
+        exerciseToSave.exerciseId,
+      ];
+      setSavedExerciseIds(updatedSavedExerciseIds);
+      saveExerciseIds(updatedSavedExerciseIds);
 
-      setSavedExerciseIds([...savedExerciseIds, exerciseToSave.exerciseId]);
+      // Update the savedExercisesMap
+      setSavedExercisesMap((prevMap) =>
+        new Map(prevMap).set(exerciseToSave.exerciseId, exerciseToSave)
+      );
+
+      // Remove from searchedExercises
+      setSearchedExercises((prevExercises) =>
+        prevExercises.filter((exercise) => exercise.exerciseId !== exerciseId)
+      );
     } catch (err) {
-      console.error(err);
+      console.error('Error Saving Exercise:', err);
     }
   };
 
-  const handleRemoveExercise = (exerciseId) => {
-    const updatedSavedExercises = savedExerciseIds.filter(
-      (id) => id !== exerciseId
-    );
-    setSavedExerciseIds(updatedSavedExercises);
+  const handleRemoveExercise = async (exerciseId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await removeExercise({ variables: { exerciseId } });
+
+      const updatedSavedExerciseIds = savedExerciseIds.filter(
+        (id) => id !== exerciseId
+      );
+      setSavedExerciseIds(updatedSavedExerciseIds);
+      saveExerciseIds(updatedSavedExerciseIds);
+
+      // Update the savedExercisesMap
+      setSavedExercisesMap((prevMap) => {
+        const newMap = new Map(prevMap);
+        newMap.delete(exerciseId);
+        return newMap;
+      });
+
+      // Add back to searchedExercises
+      const exerciseToRestore = searchedExercises.find(
+        (exercise) => exercise.exerciseId === exerciseId
+      );
+
+      if (exerciseToRestore) {
+        setSearchedExercises((prevExercises) => [
+          ...prevExercises,
+          exerciseToRestore,
+        ]);
+      }
+    } catch (err) {
+      console.error('Error Removing Exercise:', err);
+    }
   };
 
   return (
@@ -99,58 +162,65 @@ const SearchExercises = () => {
           <form onSubmit={handleFormSubmit}>
             <input
               type="text"
-              placeholder="Search GitFit"
+              placeholder="Search for an exercise"
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
             />
+            <button type="submit">Search</button>
           </form>
         </div>
-        {searchedExercises.length === 0 && (
-          <h2 className="no-results-message">
-            No exercises found. Try a different search!
-          </h2>
-        )}
-        {searchedExercises.length > 0 && (
+        {error && <p className="error-message">{error}</p>}
+        {loading && <p>Loading...</p>}
+        {!loading && searchedExercises.length > 0 && (
           <div className="search-results">
             <div className="search-results-header">
-              <h1>Search Results</h1>
+              <h1>Viewing {searchedExercises.length} Search Results:</h1>
             </div>
-            <ul className="search-results-list">
+            <div className="search-results-list">
               {searchedExercises.map((exercise) => (
-                <li key={exercise.exerciseId} >
+                <div
+                  key={exercise.exerciseId}
+                  className="exercise-card-container"
+                >
                   <ExerciseCard
-                    key={exercise.exerciseId}
                     exercise={exercise}
+                    isSaved={savedExerciseIds.includes(exercise.exerciseId)}
                     onSave={handleSaveExercise}
-                    savedExerciseIds={savedExerciseIds}
+                    onRemove={handleRemoveExercise}
                   />
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </div>
-      <div className="saved-workouts-container">
-        <div className="search-exercises-header">
-          <h1>Your Saved Exercises</h1>
+      <div className="saved-exercises-container">
+        <div className="saved-exercises-header">
+          <h1>Your Saved Exercises:</h1>
         </div>
-        <ul className="saved-workouts-list">
-          {savedExerciseIds.map((exerciseId) => (
-            <li >
-              <ExerciseCard
-                key={exerciseId}
-                exercise={searchedExercises.find(
-                  (exercise) => exercise.exerciseId === exerciseId
-                )}
-                onSave={handleRemoveExercise}
-                savedExerciseIds={savedExerciseIds}
-              />
-              <button onClick={() => handleRemoveExercise(exerciseId)}>
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div className="saved-exercises-list">
+          {savedExerciseIds.length === 0 ? (
+            <p>No saved exercises yet.</p>
+          ) : (
+            savedExerciseIds.map((exerciseId) => {
+              const exercise = savedExercisesMap.get(exerciseId);
+              return exercise ? (
+                <div key={exerciseId} className="exercise-card-container">
+                  <ExerciseCard
+                    exercise={exercise}
+                    onSave={handleSaveExercise}
+                    onRemove={handleRemoveExercise}
+                    savedExerciseIds={savedExerciseIds}
+                  />
+                </div>
+              ) : (
+                <p className="exercise-data-not-found" key={exerciseId}>
+                  Exercise not found.
+                </p>
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

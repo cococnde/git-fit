@@ -8,7 +8,8 @@ const ClientPage = () => {
     <div className="client-page">
       <ClientHeader /> {/* Render the Client-specific Header component */}
       <main>
-        <h1>Welcome to Client Page</h1>
+        <h1>Welcome!</h1>
+        <h2>Manage Your Fitness Goals Below:</h2>
         <section id="search">
           <SearchExercises /> {/* Render the SearchExercises component */}
         </section>

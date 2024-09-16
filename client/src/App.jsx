@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css'; // Import the global styles
 import {
   ApolloClient,
   InMemoryCache,
@@ -6,17 +7,14 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header.jsx'; // Default Header
 import Footer from './components/Footer.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import SearchExercises from './pages/searchexercise.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import ClientPage from './pages/ClientPage.jsx'; // Import your client page
+import Auth from './utils/auth'; // Import Auth for authentication checks
 
 // Set up HTTP link to GraphQL endpoint
 const httpLink = createHttpLink({
@@ -40,6 +38,11 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Protected Route Component
+const ProtectedRoute = ({ element }) => {
+  return Auth.loggedIn() ? element : <Navigate to="/login" />;
+};
+
 function App() {
   return (
     <ApolloProvider client={client}>
@@ -47,14 +50,41 @@ function App() {
         {/* Always render the Footer */}
         <Routes>
           {/* Default route with Header */}
-          <Route path="/" element={<><Header /><LandingPage /></>} />
-          
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <LandingPage />
+              </>
+            }
+          />
+
           {/* Other routes with Header */}
-          <Route path="/search" element={<><Header /><SearchExercises /></>} />
-          <Route path="/login" element={<><Header /><LoginForm /></>} />
-          
+          <Route
+            path="/search"
+            element={
+              <>
+                <Header />
+                <SearchExercises />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Header />
+                <LoginForm />
+              </>
+            }
+          />
+
           {/* ClientPage route without the default Header */}
-          <Route path="/client" element={<ClientPage />} />
+          <Route
+            path="/client"
+            element={<ProtectedRoute element={<ClientPage />} />}
+          />
         </Routes>
         {/* Place Footer outside of Routes to ensure it appears on all pages */}
         <Footer />

@@ -38,15 +38,13 @@ export const ADD_USER = gql`
   }
 `;
 
-
 export const SAVE_EXERCISE = gql`
-  mutation saveExercise($newExercise: ExerciseInput) {
+  mutation saveExercise($newExercise: ExerciseInput!) {
     saveExercise(newExercise: $newExercise) {
-      _id
-      username
+      id
       email
       savedExercises {
-        _id
+        id
         name
         force
         level
@@ -60,14 +58,13 @@ export const SAVE_EXERCISE = gql`
   }
 `;
 
-export const UPDATE_WORKOUT = gql`
+export const UPDATE_EXERCISE = gql`
   mutation updateExercise($exerciseId: ID!) {
     updateExercise(exerciseId: $exerciseId) {
-      _id
-      username
+      id
       email
       savedExercises {
-        _id
+        id
         name
         force
         level
@@ -81,14 +78,13 @@ export const UPDATE_WORKOUT = gql`
   }
 `;
 
-export const REMOVE_WORKOUT = gql`
+export const REMOVE_EXERCISE = gql`
   mutation removeExercise($exerciseId: ID!) {
     removeExercise(exerciseId: $exerciseId) {
-      _id
-      username
+      id
       email
       savedExercises {
-        _id
+        id
         name
         force
         level

@@ -11,39 +11,71 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  text-align: center;
-  color: #343a40;
-  margin-top: 1rem;
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
 }
 
-.navbar {
-  background-color: #343a40;
-  padding: 1rem;
-  color: #fff;
+@media (max-width: 768px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+
+  .header,
+  .footer {
+    text-align: center;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
 }
 
-.navbar a {
-  color: #fff;
-  text-decoration: none;
-  margin: 0 1rem;
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0.25rem;
+  }
+
+  .header,
+  .footer {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .main-content {
+    padding: 0.5rem;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
 }
 
-.navbar a:hover {
-  text-decoration: underline;
-}
+/* Specific range for widths between 961px and 1011px */
+@media (min-width: 961px) and (max-width: 1011px) {
+  .saved-exercises-container {
+    order: 1;
+  }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
-}
-
-.footer {
-  background-color: #343a40;
-  color: #fff;
-  text-align: center;
-  padding: 1rem;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  .search-exercises-section {
+    order: 2;
+  }
 }

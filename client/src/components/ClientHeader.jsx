@@ -12,7 +12,7 @@ const ClientHeader = () => {
     <header className="header">
       <div className="container">
         <h1>GitFit</h1>
-        <p>Welcome Back! Manage Your Fitness Goals</p>
+        <p>Your Fitness Journey Starts Here!</p>
       </div>
       <nav className="navbar-container">
         <ul className="navbar-links">
