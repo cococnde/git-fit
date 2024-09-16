@@ -29,38 +29,48 @@
   color: #666;
 }
 
-/* Styling for buttons */
-.button {
+/* Styling for the save button */
+.save-button {
   position: absolute;
   bottom: 10px;
+  right: 10px;
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
+  background-color: #007bff;
   color: #ffffff;
   border: none;
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
-.save-button {
-  right: 10px;
-  background-color: #007bff;
-}
-
+/* Add hover effect for the save button */
 .save-button:hover {
   background-color: #0056b3;
 }
 
+/* Disabled button styling */
 .save-button:disabled {
   background-color: #49c271;
   cursor: not-allowed;
 }
 
+/* Styling for the remove button */
 .remove-button {
+  position: absolute;
+  bottom: 10px;
   left: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
   background-color: #dc3545;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
+/* Add hover effect for the remove button */
 .remove-button:hover {
   background-color: #c82333;
 }

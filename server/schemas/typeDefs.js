@@ -1,7 +1,7 @@
 // Define your full type definitions
 const typeDefs = `
   type Exercise {
-    _id: ID
+    id: ID
     name: String
     force: String
     level: String

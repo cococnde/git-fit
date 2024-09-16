@@ -8,7 +8,7 @@ export const GET_ME = gql`
       email
       exerciseCount
       savedExercises {
-        _id
+        id
         name
         force
         level
@@ -25,7 +25,7 @@ export const GET_ME = gql`
 export const SEARCH_EXERCISES = gql`
   query searchExercises($searchTerm: String!) {
     searchExercises(searchTerm: $searchTerm) {
-      _id
+      id
       name
       force
       level
