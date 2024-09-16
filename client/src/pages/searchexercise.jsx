@@ -14,6 +14,7 @@ const SearchExercises = () => {
   const [savedExerciseIds, setSavedExerciseIds] = useState(
     getSavedExerciseIds()
   );
+  const [savedExercisesMap, setSavedExercisesMap] = useState(new Map());
   const [saveExercise] = useMutation(SAVE_EXERCISE);
   const [removeExercise] = useMutation(REMOVE_EXERCISE);
   const [error, setError] = useState('');
@@ -98,6 +99,11 @@ const SearchExercises = () => {
       setSavedExerciseIds(updatedSavedExerciseIds);
       saveExerciseIds(updatedSavedExerciseIds);
 
+      // Update the savedExercisesMap
+      setSavedExercisesMap((prevMap) =>
+        new Map(prevMap).set(exerciseToSave.exerciseId, exerciseToSave)
+      );
+
       // Remove from searchedExercises
       setSearchedExercises((prevExercises) =>
         prevExercises.filter((exercise) => exercise.exerciseId !== exerciseId)
@@ -123,6 +129,13 @@ const SearchExercises = () => {
       setSavedExerciseIds(updatedSavedExerciseIds);
       saveExerciseIds(updatedSavedExerciseIds);
 
+      // Update the savedExercisesMap
+      setSavedExercisesMap((prevMap) => {
+        const newMap = new Map(prevMap);
+        newMap.delete(exerciseId);
+        return newMap;
+      });
+
       // Add back to searchedExercises
       const exerciseToRestore = searchedExercises.find(
         (exercise) => exercise.exerciseId === exerciseId
@@ -138,14 +151,6 @@ const SearchExercises = () => {
       console.error('Error Removing Exercise:', err);
     }
   };
-
-  // Create a map of saved exercises for quicker lookup
-  const savedExercisesMap = new Map(
-    savedExerciseIds.map((id) => [
-      id,
-      searchedExercises.find((exercise) => exercise.exerciseId === id),
-    ])
-  );
 
   return (
     <div className="search-exercises-container">
