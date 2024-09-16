@@ -29,11 +29,13 @@ const LoginForm = () => {
         ? await loginUser({ variables: payload }) // Call loginUser if isLogin is true
         : await addUser({ variables: payload }); // Call addUser if isLogin is false
 
-      if (data?.signUp || data?.login) {
-        const token = data.signUp?.token || data.login?.token;
-        console.log('data', data);
+      if (data?.login?.token || data?.signUp?.token) {
+        const token = data.login?.token || data.signUp?.token;
+        //console.log('data', data);
         console.log('Token:', token);
-        Auth.setToken(token); // Use Auth to set the token without reloading
+        Auth.setToken(token); // Set the token in localStorage
+
+        // Display success alert and navigate to the client page
         alert('Success!');
         navigate('/client'); // Redirect to ClientPage after successful login/sign-up
       } else {

@@ -12,7 +12,7 @@ class AuthService {
   loggedIn() {
     // Checks if there is a saved token and it's still valid
     const token = this.getToken();
-    console.log('Token:', token);
+    //console.log('Token:', token);
     const isLoggedIn = !!token && !this.isTokenExpired(token);
     console.log('Is Logged In:', isLoggedIn);
     return isLoggedIn;
@@ -25,33 +25,36 @@ class AuthService {
       console.log('Decoded Token:', decoded);
       if (decoded.exp < Date.now() / 1000) {
         return true;
-      } else return false;
+      } else {
+        return false;
+      }
     } catch (err) {
       console.error('Token decoding error:', err);
       return false;
     }
   }
 
+  // Retrieves the user token from localStorage
   getToken() {
-    // Retrieves the user token from localStorage
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('id_token');
     console.log('Retrieved Token:', token);
     return token;
   }
 
+  // Saves user token to localStorage and reload the page
   login(idToken) {
-    // Saves user token to localStorage
     console.log('Saving Token:', idToken);
     localStorage.setItem('id_token', idToken);
     window.location.assign('/');
   }
 
+  // Saves user token to localStorage without reloading
   setToken(idToken) {
-    // Saves user token to localStorage without reloading
     console.log('Setting Token:', idToken);
-    localStorage.setItem('token', idToken);
+    localStorage.setItem('id_token', idToken);
   }
 
+  // Logout and clear token
   logout() {
     // Clear user token and profile data from localStorage
     console.log('Removing Token');
