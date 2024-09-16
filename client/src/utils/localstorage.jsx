@@ -42,3 +42,14 @@ export const removeExerciseId = (exerciseId) => {
 
   return true; // Operation successful
 };
+
+// Save exercises to localStorage
+export const saveExercises = (exercises) => {
+  localStorage.setItem('saved_exercises_data', JSON.stringify(exercises));
+};
+
+// Retrieve saved exercises from localStorage
+export const getSavedExercises = () => {
+  const savedExercises = localStorage.getItem('saved_exercises_data');
+  return savedExercises ? JSON.parse(savedExercises) : [];
+};

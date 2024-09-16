@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/searchexercise.css';
 import ExerciseCard from '../components/ExerciseCard';
-import { saveExerciseIds, getSavedExerciseIds } from '../utils/localstorage';
+import {
+  saveExerciseIds,
+  getSavedExerciseIds,
+  saveExercises,
+  getSavedExercises,
+} from '../utils/localstorage';
 import Auth from '../utils/auth';
 import { useMutation, useQuery } from '@apollo/client';
 import { SAVE_EXERCISE, REMOVE_EXERCISE } from '../utils/mutations';
@@ -14,7 +19,11 @@ const SearchExercises = () => {
   const [savedExerciseIds, setSavedExerciseIds] = useState(
     getSavedExerciseIds()
   );
-  const [savedExercisesMap, setSavedExercisesMap] = useState(new Map());
+  const [savedExercisesMap, setSavedExercisesMap] = useState(
+    new Map(
+      getSavedExercises().map((exercise) => [exercise.exerciseId, exercise])
+    )
+  );
   const [saveExercise] = useMutation(SAVE_EXERCISE);
   const [removeExercise] = useMutation(REMOVE_EXERCISE);
   const [error, setError] = useState('');
@@ -100,9 +109,12 @@ const SearchExercises = () => {
       saveExerciseIds(updatedSavedExerciseIds);
 
       // Update the savedExercisesMap
-      setSavedExercisesMap((prevMap) =>
-        new Map(prevMap).set(exerciseToSave.exerciseId, exerciseToSave)
+      const updatedSavedExercisesMap = new Map(savedExercisesMap).set(
+        exerciseToSave.exerciseId,
+        exerciseToSave
       );
+      setSavedExercisesMap(updatedSavedExercisesMap);
+      saveExercises(Array.from(updatedSavedExercisesMap.values()));
 
       // Remove from searchedExercises
       setSearchedExercises((prevExercises) =>
@@ -130,16 +142,13 @@ const SearchExercises = () => {
       saveExerciseIds(updatedSavedExerciseIds);
 
       // Update the savedExercisesMap
-      setSavedExercisesMap((prevMap) => {
-        const newMap = new Map(prevMap);
-        newMap.delete(exerciseId);
-        return newMap;
-      });
+      const updatedSavedExercisesMap = new Map(savedExercisesMap);
+      updatedSavedExercisesMap.delete(exerciseId);
+      setSavedExercisesMap(updatedSavedExercisesMap);
+      saveExercises(Array.from(updatedSavedExercisesMap.values()));
 
       // Add back to searchedExercises
-      const exerciseToRestore = searchedExercises.find(
-        (exercise) => exercise.exerciseId === exerciseId
-      );
+      const exerciseToRestore = savedExercisesMap.get(exerciseId);
 
       if (exerciseToRestore) {
         setSearchedExercises((prevExercises) => [
