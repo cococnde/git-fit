@@ -4,9 +4,7 @@ export const GET_ME = gql`
   query me {
     me {
       id
-      username
       email
-      exerciseCount
       savedExercises {
         id
         name

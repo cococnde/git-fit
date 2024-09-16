@@ -1,7 +1,7 @@
 // Define your full type definitions
 const typeDefs = `
   type Exercise {
-    id: ID
+    id: ID!
     name: String
     force: String
     level: String
@@ -10,12 +10,12 @@ const typeDefs = `
     primaryMuscles: [String]
     secondaryMuscles: [String]
     instructions: [String]
-    category: String
   }
 
   type User {
     id: ID!
     email: String!
+    savedExercises: [Exercise] # Added savedExercises field to User
   }
 
   type AuthPayload {
@@ -32,7 +32,6 @@ const typeDefs = `
     primaryMuscles: [String]
     secondaryMuscles: [String]
     instructions: [String]
-    category: String
   }
 
   type Query {

@@ -1,16 +1,21 @@
-/* Container for the search and saved exercises containers */
-.search-exercises-container,
-.saved-exercises-container {
+/* Container for the search exercises section */
+.search-exercises-container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
   flex-wrap: wrap;
-  gap: 20px;
 }
 
-/* Styling for the search and saved exercises sections */
-.search-exercises-section,
-.saved-exercises-section {
+/* Styling for the saved exercises container */
+.saved-exercises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 45%;
+}
+
+/* Styling for the search exercises sections */
+.search-exercises-section {
   width: 100%;
   max-width: 600px;
   display: flex;
@@ -26,14 +31,15 @@
 .search-exercises-header,
 .saved-exercises-header {
   margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
 }
 
 .search-exercises-header h1,
 .saved-exercises-header h1 {
   font-size: 30px;
-  width: 100%;
   max-width: 400px;
-  text-align: center;
+  margin: 0 auto;
   color: #333;
 }
 
@@ -69,8 +75,7 @@
 }
 
 /* Styling for the search results and saved exercises */
-.search-results,
-.saved-exercises {
+.search-results {
   margin-top: 20px;
   width: 100%;
 }
@@ -87,11 +92,9 @@
 .saved-exercises-list {
   list-style-type: none;
   padding: 0;
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
 /* Styling for the exercise card container */
@@ -112,7 +115,8 @@
 }
 
 .no-results-message,
-.exercise-data-not-found {
+.exercise-data-not-found,
+.no-saved-exercises {
   color: red;
 }
 
@@ -132,4 +136,55 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: #f0f0f0;
+}
+
+/* Media queries for responsive design */
+
+/* Small screens (mobile devices) */
+@media (max-width: 600px) {
+  .search-exercises-container,
+  .saved-exercises-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-form-container input {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+  }
+
+  .search-form-container button {
+    width: 100%;
+  }
+
+  .exercise-card-container {
+    max-width: 100%;
+  }
+
+  .search-results-list,
+  .saved-exercises-list {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .search-exercises-container,
+  .saved-exercises-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-form-container input {
+    width: calc(100% - 120px);
+  }
+
+  .search-form-container button {
+    width: 120px;
+  }
+
+  .exercise-card-container {
+    max-width: 90%;
+  }
 }
