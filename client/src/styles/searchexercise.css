@@ -1,36 +1,38 @@
 /* Container for the search exercises section */
 .search-exercises-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 20px;
   flex-wrap: wrap;
+  gap: 10%;
 }
 
 /* Styling for the saved exercises container */
 .saved-exercises-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 45%;
+  gap: 15px;
+  width: 40%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Styling for the search exercises sections */
 .search-exercises-section {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f5f5f5;
   border-radius: 8px;
-  padding: 20px;
+  padding: 25px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Styling for the headers */
 .search-exercises-header,
 .saved-exercises-header {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   text-align: center;
   width: 100%;
 }
@@ -47,27 +49,30 @@
 .search-form-container {
   width: 100%;
   max-width: 400px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .search-form-container input {
   width: calc(100% - 100px);
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px 0 0 4px;
   outline: none;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
 /* Styling for the search button */
 .search-form-container button {
   width: 100px;
-  padding: 10px;
+  padding: 12px;
   background-color: #0e5eb4;
   color: white;
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 1.1rem;
 }
 
 .search-form-container button:hover {
@@ -76,7 +81,7 @@
 
 /* Styling for the search results and saved exercises */
 .search-results {
-  margin-top: 20px;
+  margin-top: 25px;
   width: 100%;
 }
 
@@ -85,7 +90,7 @@
   font-size: 18px;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .search-results-list,
@@ -99,8 +104,11 @@
 
 /* Styling for the exercise card container */
 .exercise-card-container {
-  width: 100%;
-  max-width: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
 }
 
 /* Styling for messages */
@@ -148,23 +156,17 @@
     align-items: center;
   }
 
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
+
   .search-form-container input {
     width: calc(100% - 20px);
     margin-bottom: 10px;
-  }
-
-  .search-form-container button {
-    width: 100%;
-  }
-
-  .exercise-card-container {
-    max-width: 100%;
-  }
-
-  .search-results-list,
-  .saved-exercises-list {
-    flex-direction: column;
-    align-items: center;
   }
 }
 
@@ -174,6 +176,72 @@
   .saved-exercises-container {
     flex-direction: column;
     align-items: center;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
+
+  .search-form-container input {
+    width: calc(100% - 120px);
+  }
+
+  .search-form-container button {
+    width: 120px;
+  }
+
+  .exercise-card-container {
+    max-width: 90%;
+  }
+}
+
+/* Large screens (desktops) */
+@media (min-width: 901px) and (max-width: 1200px) {
+  .search-exercises-container,
+  .saved-exercises-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
+  }
+
+  .search-form-container input {
+    width: calc(100% - 120px);
+  }
+
+  .search-form-container button {
+    width: 120px;
+  }
+
+  .exercise-card-container {
+    max-width: 90%;
+  }
+}
+
+/* Specific range for widths between 961px and 1011px */
+@media (min-width: 961px) and (max-width: 1011px) {
+  .search-exercises-container,
+  .saved-exercises-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .saved-exercises-container {
+    order: 1;
+  }
+
+  .search-exercises-section {
+    order: 2;
   }
 
   .search-form-container input {

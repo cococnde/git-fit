@@ -22,11 +22,24 @@ export const ExerciseCard = ({
 
   return (
     <div className="exercise-card">
-      <h3>{exercise.name}</h3>
-      <p>Force: {exercise.force}</p>
-      <p>Level: {exercise.level}</p>
-      <p>Equipment: {exercise.equipment}</p>
-      <p>Instructions: {exercise.instructions}</p>
+      <div className="card-header">
+        <h3 className="exercise-name">{exercise.name}</h3>
+      </div>
+      <p>
+        <strong>Force: </strong>
+        {exercise.force}
+      </p>
+      <p>
+        <strong>Level: </strong>
+        {exercise.level}
+      </p>
+      <p>
+        <strong>Equipment: </strong>
+        {exercise.equipment}
+      </p>
+      <p>
+        <strong>Instructions:</strong> {exercise.instructions}
+      </p>
       {Auth.loggedIn() && (
         <>
           <button

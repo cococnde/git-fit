@@ -4,10 +4,12 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  margin: 16px 0; /* Adjust as needed */
+  margin: 16px 0;
   background-color: #f9f9f9;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out;
+  flex: 1 1 calc(33.333% - 32px);
+  padding-bottom: 45px;
 }
 
 /* Add hover effect for the card */
@@ -15,11 +17,22 @@
   transform: translateY(-5px);
 }
 
+/* Styling for the card header */
+.card-header {
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 /* Styling for the exercise name */
-.exercise-card h3 {
-  margin-top: 0;
+.exercise-name {
   font-size: 24px;
   color: #333;
+  padding-top: 10px;
 }
 
 /* Styling for the exercise details */
@@ -72,7 +85,7 @@
 
 /* Add hover effect for the remove button */
 .remove-button:hover {
-  background-color: #c82333;
+  background-color: #a41927;
 }
 
 /* Styling for the no saved exercises message */
