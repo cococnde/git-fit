@@ -16,6 +16,10 @@ Upon loading the application I am presented with a Toggle option to sign-in to m
 
 ## Screenshots
 
+<img width="1504" alt="Screenshot 2024-09-16 at 7 36 32 PM" src="https://github.com/user-attachments/assets/25ee0cbb-cae0-4d0c-bf44-9e75b3300f15">
+<img width="1488" alt="Screenshot 2024-09-16 at 7 37 39 PM" src="https://github.com/user-attachments/assets/9c414100-b012-4dad-bc0f-44a374e30066">
+<img width="1490" alt="Screenshot 2024-09-16 at 7 37 55 PM" src="https://github.com/user-attachments/assets/7dfc120b-bf4f-4e5b-a19a-076360f86b9b">
+
 ## Link
 
 ## Contributors
