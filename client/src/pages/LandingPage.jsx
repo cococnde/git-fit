@@ -2,7 +2,7 @@ import React from 'react'; // Ensure useState and useEffect are imported
 import '../styles/LandingPage.css';
 import LoginForm from '../components/LoginForm'; // Import the SearchExercises component
 
-import image from '../../assets/hiking.png';
+import image from '/hiking.png';
 
 
 const styles = {
