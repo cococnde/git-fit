@@ -28,4 +28,3 @@ Upon loading the application I am presented with a Toggle option to sign-in to m
 - Yahvannel https://github.com/SoyYLo
 - Ruby https://github.com/slym187
 - Vaughan https://github.com/vaughanknouse
-- Courtney https://github.com/cococnde
