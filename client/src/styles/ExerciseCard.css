@@ -19,7 +19,7 @@
 
 /* Styling for the card header */
 .card-header {
-  background-color: #e0e0e0;
+  background-color: #7f9af1;
   padding: 10px;
   border-radius: 8px 8px 0 0;
   display: flex;
@@ -31,15 +31,15 @@
 /* Styling for the exercise name */
 .exercise-name {
   font-size: 24px;
-  color: #333;
+  color: #333333;
   padding-top: 10px;
-}
+font-family: 'Courier New', Courier, monospace;}
 
 /* Styling for the exercise details */
 .exercise-card p {
   margin: 8px 0;
   font-size: 16px;
-  color: #666;
+  color: #585757;
 }
 
 /* Styling for the save button */
@@ -50,7 +50,7 @@
   padding: 8px 16px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #333;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -59,7 +59,7 @@
 
 /* Add hover effect for the save button */
 .save-button:hover {
-  background-color: #0056b3;
+  background-color: #615f5f;
 }
 
 /* Disabled button styling */
