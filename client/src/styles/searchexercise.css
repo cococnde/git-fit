@@ -43,6 +43,7 @@
   max-width: 400px;
   margin: 0 auto;
   color: #333;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* Styling for the search form */
@@ -66,7 +67,7 @@
 .search-form-container button {
   width: 100px;
   padding: 12px;
-  background-color: #0e5eb4;
+  background-color: #728ad9;
   color: white;
   border: none;
   border-radius: 0 4px 4px 0;
@@ -76,7 +77,7 @@
 }
 
 .search-form-container button:hover {
-  background-color: #1d7fe9;
+  background-color: #5365a0;
 }
 
 /* Styling for the search results and saved exercises */
