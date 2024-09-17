@@ -5,7 +5,7 @@
   height: 500px;
   text-align: center;
   padding: 2rem;
-  background-image: url('../assets/hiking.png');
+  background-image: url('/hiking.png');
   background-size: cover;
   background-position: center;
   background-color: #f8f9fa;
