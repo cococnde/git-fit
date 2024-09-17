@@ -22,6 +22,12 @@ Upon loading the application I am presented with a Toggle option to sign-in to m
 
 ## Link
 
+https://git-fit-2.onrender.com
+
+## Resources
+
+https://github.com/wrkout/exercises.json
+
 ## Contributors
 
 - Melissa https://github.com/melivesel
